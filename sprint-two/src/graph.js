@@ -17,20 +17,21 @@ Graph.prototype.contains = function(node){
 };
 
 Graph.prototype.removeNode = function(node){
-  var toRemove;
+  var toRemoveIndex;
   for (var i = 0; i < this.nodeList.length; i++){
-    if (this.nodeList[i].value === node){
-      toRemove = this.nodeList[i];
+    var current = this.nodeList[i];
+    if (current.value === node){ //search for target
+      toRemoveIndex = i;
     }
-  }
-  for (var j = 0; j < this.nodeList.length; j++){
-    var current = this.nodeList[j];
-    var index = toRemove.edgeList.indexOf(this.nodeList[j]);
-
+    var index = current.edgeList.indexOf(node);
     if (index!== -1){
-      this.nodeList[j].edgeList.splice()
+      current.edgeList.splice(index, 1);
     }
   }
+  if(toRemoveIndex !== undefined) {
+    this.nodeList.splice(toRemoveIndex, 1);
+  }
+
 };
 
 Graph.prototype.hasEdge = function(fromNode, toNode){
@@ -52,11 +53,31 @@ Graph.prototype.addEdge = function(fromNode, toNode){
       to = this.nodeList[i];
     }
   }
-  to.edgeList.push(fromNode);
-  from.edgeList.push(toNode);
+  if(fromNode === toNode && to===undefined && from !== undefined){
+    from.edgeList.push(toNode);
+  }else{
+    to.edgeList.push(fromNode);
+    from.edgeList.push(toNode);
+  }
 };
 
 Graph.prototype.removeEdge = function(fromNode, toNode){
+  var current;
+  var index;
+  for(var i=0; i<this.nodeList.length; i++) {
+    current = this.nodeList[i];
+    if( current.value === fromNode ) {
+      index = current.edgeList.indexOf(toNode);
+      if( index > -1 ) {
+        current.edgeList.splice(index, 1);
+      }
+    } else if (current.value === toNode) {
+      index = current.edgeList.indexOf(fromNode);
+      if(index > -1) {
+        current.edgeList.splice(index, 1);
+      }
+    }
+  }
 };
 
 Graph.prototype.forEachNode = function(cb){
@@ -73,4 +94,16 @@ var graphNode = function(value) {
   this.value = value;
   this.edgeList = [];
 };
+
+
+var graph = new Graph();
+
+var connectToSatsumas = function(item) {
+  graph.addEdge(item, 'satsumas');
+};
+graph.addNode('satsumas');
+graph.addNode('puppies');
+graph.addNode('kittens');
+graph.addNode('penguins');
+graph.forEachNode(connectToSatsumas);
 
