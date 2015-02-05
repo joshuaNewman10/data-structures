@@ -3,7 +3,7 @@ var LinkedList = function(){
   list.head = null;
   list.tail = null;
 
-  list.addToTail = function(value){
+  list.addToTail = function(value){ // O(1)
     if (list.tail === null){
       list.tail = Node(value);
     }else if (list.head === null){
@@ -18,7 +18,7 @@ var LinkedList = function(){
     }
   };
 
-  list.removeHead = function(){
+  list.removeHead = function(){ // O(1)
     var node;
     if (list.head === null){
       node = list.tail;
@@ -30,8 +30,8 @@ var LinkedList = function(){
     return node.value;
   };
 
-  list.contains = function(target){
-    var curr = list.head;
+  list.contains = function(target){  //O(n)
+    var curr = list.head || list.tail;
     while(curr){
       if (curr.value ===target){
         return true;
