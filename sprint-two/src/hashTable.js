@@ -36,7 +36,7 @@ HashTable.prototype.remove = function(k){
   var bucket = this._storage.get(index);
   var val;
   for(var i=0; i<bucket.length; i++) {
-    if( bucket[i][0] === k) {
+    if( bucket[i][0] === k ) {
       val = bucket[i][1];
       bucket.splice(i, 1);
     }
