@@ -1,0 +1,8 @@
+Invariants
+  1) Each node red or black
+  2) root always black
+  3) no 2 reds in a row
+    -->red node has only black children
+    -->black node has only red parent
+  4) every root-null path has same # black nodes
+    -->think of as unsucessfull search

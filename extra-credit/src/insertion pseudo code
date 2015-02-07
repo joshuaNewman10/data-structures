@@ -1,0 +1,13 @@
+insertion pseudo code
+
+1. current node is root of tree: make sure it's black
+
+2. Current node's parent is black, the node is red, so all is good.
+
+3. If both the parent and uncle are red, repaint parent and uncle black, and grandparent becomes red. repaint grandparent black if it is the root.
+
+4. Parent red, uncle black, current node is right child of parent and parent is left child of grandparent. Use left roation to switch the roles of node and parent. call case 5 on parent.
+
+5. the parent p is red, uncle is black, current node is left child of P, and P is left child of it's parent G: do right rotation on G.
+
+
